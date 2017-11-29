@@ -4,15 +4,16 @@ const participant = express.Router();
 const validateParticipant = require('./middleware').validateParticipant;
 
 let participantId = 2;
-const participants = [
+const USERS = [
   { id: 0, firstName: 'Laura', lastName: 'Doyle', email: 'fleurguson@gmail.com'},
   { id: 1, firstName: 'Justin', lastName: 'Doyle', email: 'muddpuddle13@gmail.com'}
 ];
+let ASSIGNMENTS = [];
 
 participant.route('/')
 .get((req, res) => {
   res.json({
-    data: participants
+    data: USERS
   });
 })
 .post(validateParticipant, (req, res) => {
@@ -23,23 +24,30 @@ participant.route('/')
     email: req.body.email,
   }
 
-  participants.push(newParticipant);
+  USERS.push(newParticipant);
   return res.status(201).json({
     data: newParticipant
+  });
+});
+
+participant.route('/assignments')
+.get((req, res) => {
+  return res.json({
+    data: ASSIGNMENTS
   });
 });
 
 participant.route('/assign-all')
 .get((req, res) => {
 
-  if (participants.length <= 2) {
+  if (USERS.length <= 2) {
     return res.status(422).json({
       error: 'There must at least 3 participants before you can assign'
     });
   }
 
   const randomizedUsers = [];
-  let oldUsers = [...participants];
+  let oldUsers = [...USERS];
   while (oldUsers.length > 0) {
     const index = Math.round(Math.random() * (oldUsers.length - 1));
     randomizedUsers.push(oldUsers[index]);
@@ -57,14 +65,16 @@ participant.route('/assign-all')
     };
   });
 
+  ASSIGNMENTS = assignments;
+
   return res.json({
-    data: assignments
+    data: ASSIGNMENTS
   });
 });
 
 participant.route('/:id')
 .get((req, res) => {
-  const participant = participants.find(p => p.id === req.params.id);
+  const participant = USERS.find(p => p.id === req.params.id);
 
   if (!participant) {
     res.status(404).json({

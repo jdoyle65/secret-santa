@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { ParticipantService } from '../core/participant.service';
 
@@ -13,7 +14,8 @@ export class ParticipantsComponent implements OnInit {
   public newPerson: SS.Participant
 
   constructor(
-    private ParticipantService: ParticipantService
+    private ParticipantService: ParticipantService,
+    private Router: Router
   ) {
     this.newPerson = {
       id: null,
@@ -48,7 +50,7 @@ export class ParticipantsComponent implements OnInit {
   public onSubmitAssign() {
     this.ParticipantService.assign()
       .subscribe(response => {
-        console.log(response.data);
+        this.Router.navigateByUrl('/participants/assignments');
       }, err => {
         alert(JSON.stringify(err.error));
       });

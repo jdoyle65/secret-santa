@@ -9,11 +9,11 @@
     <mat-form-field>
       <input matInput type="text" placeholder="Email" [(ngModel)]="newPerson.email" name="email">
     </mat-form-field>
-    <button mat-raised-button color="primary" type="submit">Save</button>
+    <button mat-raised-button class="button" color="primary" type="submit">Save</button>
   </form>
 </div>
 <form (ngSubmit)="onSubmitAssign()">
-  <button mat-raised-button color="primary" type="submit">Assign</button>
+  <button mat-raised-button class="button" color="primary" type="submit">Assign</button>
 </form>
 <div>
   <mat-list>

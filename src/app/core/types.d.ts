@@ -9,4 +9,9 @@ declare namespace SS {
     lastName: string;
     email: string
   }
+
+  interface Assignment {
+    participant: SS.Participant;
+    assignment: SS.Participant;
+  }
 }

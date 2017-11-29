@@ -1,0 +1,11 @@
+Assignments!
+<div *ngIf="assignments$ | async; let assignments">
+  <div *ngIf="assignments.length === 0">
+    No assignments yet.
+  </div>
+  <mat-list *ngIf="assignments.length">
+    <mat-list-item *ngFor="let a of assignments">
+      {{ a.participant.lastName }}, {{ a.participant.firstName }} -> {{ a.assignment.lastName }}, {{ a.assignment.firstName }}
+    </mat-list-item>
+  </mat-list>
+</div>
