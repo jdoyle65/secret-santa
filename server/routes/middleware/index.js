@@ -12,8 +12,8 @@ const validateModel = function(model, data) {
 
 const validateParticipant = function(req, res, next) {
   const model = {
-    firstName: 'string',
-    lastName: 'string',
+    first_name: 'string',
+    last_name: 'string',
     email: 'string'
   }
 

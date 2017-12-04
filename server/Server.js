@@ -1,7 +1,10 @@
 'use strict';
+const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const participant = require('./routes/participant');
+const Database = require('./Database');
+
 
 
 class Server {
@@ -12,10 +15,16 @@ class Server {
   }
 
   init(app) {
+    this.db = Database;
+    // this.db.db.run('INSERT INTO users (?) VALUES(null, ?, ?, ?)', [
+    //   'id, first_name, last_name, email',
+    //   'Justin',
+    //   'Doyle',
+    //   'muddpuddle13@gmail.com'
+    // ],(err, result) => {
+    //   console.log('Result', err, result)
+    // });
     app.use(bodyParser.json());
-    app.get('/api', (req, res) => res.json({
-      message: 'hello, world'
-    }));
     app.use('/api/participant', participant);
   }
 

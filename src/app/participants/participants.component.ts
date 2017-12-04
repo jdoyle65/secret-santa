@@ -19,8 +19,8 @@ export class ParticipantsComponent implements OnInit {
   ) {
     this.newPerson = {
       id: null,
-      firstName: '',
-      lastName: '',
+      first_name: '',
+      last_name: '',
       email: ''
     };
     this.ParticipantService.fetchParticipants();
@@ -37,8 +37,8 @@ export class ParticipantsComponent implements OnInit {
       .subscribe(response => {
         this.newPerson = {
           id: null,
-          firstName: '',
-          lastName: '',
+          first_name: '',
+          last_name: '',
           email: ''
         };
         this.ParticipantService.fetchParticipants();

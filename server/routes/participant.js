@@ -2,31 +2,40 @@
 const express = require('express');
 const participant = express.Router();
 const validateParticipant = require('./middleware').validateParticipant;
+const User = require('../models/User');
 
-let participantId = 2;
-const USERS = [
-  { id: 0, firstName: 'Laura', lastName: 'Doyle', email: 'fleurguson@gmail.com'},
-  { id: 1, firstName: 'Justin', lastName: 'Doyle', email: 'muddpuddle13@gmail.com'}
-];
-let ASSIGNMENTS = [];
 
 participant.route('/')
 .get((req, res) => {
-  res.json({
-    data: USERS
-  });
+  const user = new User();
+  user.all((err, users) => {
+    if (err) {
+      return res.status(500).json(err);
+    }
+
+    return res.json({
+      data: users
+    });
+  })
 })
 .post(validateParticipant, (req, res) => {
   const newParticipant = {
-    id: participantId++,
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
+    id: null,
+    first_name: req.body.first_name,
+    last_name: req.body.last_name,
     email: req.body.email,
   }
 
-  USERS.push(newParticipant);
-  return res.status(201).json({
-    data: newParticipant
+  const user = new User();
+  user.insert(newParticipant, (err, id) => {
+    if (err) {
+      return res.status(500).json(err);
+    }
+
+    newParticipant.id = id;
+    return res.status(201).json({
+      data: newParticipant
+    });
   });
 });
 

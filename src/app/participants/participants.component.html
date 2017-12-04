@@ -1,10 +1,10 @@
 <div>
   <form (ngSubmit)="onSubmitPerson()" #newPersonForm="ngForm">
     <mat-form-field>
-      <input matInput type="text" placeholder="First Name" [(ngModel)]="newPerson.firstName" name="firstName">
+      <input matInput type="text" placeholder="First Name" [(ngModel)]="newPerson.first_name" name="firstName">
     </mat-form-field>
     <mat-form-field>
-      <input matInput type="text" placeholder="Last Name" [(ngModel)]="newPerson.lastName" name="lastName">
+      <input matInput type="text" placeholder="Last Name" [(ngModel)]="newPerson.last_name" name="lastName">
     </mat-form-field>
     <mat-form-field>
       <input matInput type="text" placeholder="Email" [(ngModel)]="newPerson.email" name="email">
@@ -18,7 +18,7 @@
 <div>
   <mat-list>
     <mat-list-item *ngFor="let p of participants$ | async">
-      {{ p.lastName }}, {{ p.firstName }} - {{ p.email }}
+      {{ p.first_name }}, {{ p.last_name }} - {{ p.email }}
     </mat-list-item>
   </mat-list>
 </div>
